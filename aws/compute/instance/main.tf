@@ -72,10 +72,19 @@ resource aws_route53_record instance_reverse {
   records = [local.name]
 }
 
-resource aws_route53_record internal {
+module reverse_dns {
+  source = "../../network/route53/ptr_record"
+
+  zone_id = var.reverse_zone_id
+  ip_portion = join(".", reverse(regex("[[:digit:]]*.[[:digit:]]*.([[:digit:]]*).([[:digit:]]*)",
+                    aws_instance.server.private_ip)))
+  name    = [local.name]
+}
+
+module internal_dns {
+  source = "../../network/route53/a_record"
+
   zone_id = var.name_zone_id
-  type    = "A"
-  ttl     = 300
   name    = local.name
   records = [aws_instance.server.private_ip]
 }
