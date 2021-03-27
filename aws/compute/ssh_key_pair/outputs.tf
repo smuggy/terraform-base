@@ -9,3 +9,7 @@ output public_key_ssh {
 output key_pair_id {
   value = aws_key_pair.utility_pair.key_pair_id
 }
+
+output key_pair_name {
+  value = aws_key_pair.utility_pair.key_name
+}
