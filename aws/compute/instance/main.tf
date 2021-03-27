@@ -68,7 +68,7 @@ module reverse_dns {
   zone_id = var.reverse_zone_id
   ip_portion = join(".", reverse(regex("[[:digit:]]*.[[:digit:]]*.([[:digit:]]*).([[:digit:]]*)",
                     aws_instance.server.private_ip)))
-  name    = [local.name]
+  name    = local.name
 }
 
 module internal_dns {
