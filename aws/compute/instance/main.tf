@@ -62,16 +62,6 @@ resource aws_ebs_volume volume {
   }
 }
 
-resource aws_route53_record instance_reverse {
-  zone_id = var.reverse_zone_id
-  type    = "PTR"
-  name    = join(".",
-  reverse(regex("[[:digit:]]*.[[:digit:]]*.([[:digit:]]*).([[:digit:]]*)",
-  aws_instance.server.private_ip)))
-  ttl     = "300"
-  records = [local.name]
-}
-
 module reverse_dns {
   source = "../../network/route53/ptr_record"
 
