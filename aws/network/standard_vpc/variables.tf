@@ -22,11 +22,11 @@ variable region {}
 variable domain_name {}
 
 variable base_net {
-  type = number
+  type    = number
   default = 0
 }
 
-variable public_subnet {
-  type = bool
+variable private_subnet {
+  type    = bool
   default = false
 }

@@ -24,7 +24,7 @@ resource aws_default_route_table drt {
   tags = var.addl_tags
 }
 
-resource aws_subnet private_az_a {
+resource aws_subnet public_az_a {
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = cidrsubnet(var.cidr_block, var.subnet_bits, var.base_net + 1)
   availability_zone       = "${var.region}a"
@@ -32,7 +32,7 @@ resource aws_subnet private_az_a {
   tags = var.subnet_tags
 }
 
-resource aws_subnet private_az_b {
+resource aws_subnet public_az_b {
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = cidrsubnet(var.cidr_block, var.subnet_bits, var.base_net + 2)
   availability_zone       = "${var.region}b"
@@ -41,7 +41,7 @@ resource aws_subnet private_az_b {
   tags = var.subnet_tags
 }
 
-resource aws_subnet private_az_c {
+resource aws_subnet public_az_c {
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = cidrsubnet(var.cidr_block, var.subnet_bits, var.base_net + 3)
   availability_zone       = "${var.region}c"
@@ -50,34 +50,34 @@ resource aws_subnet private_az_c {
   tags = var.subnet_tags
 }
 
-resource aws_subnet public_az_a {
-  count = var.public_subnet ? 1 : 0
+resource aws_subnet private_az_a {
+  count = var.private_subnet ? 1 : 0
 
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = cidrsubnet(var.cidr_block, var.subnet_bits, var.base_net + 4)
   availability_zone       = "${var.region}a"
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
   tags = var.subnet_tags
 }
 
-resource aws_subnet public_az_b {
-  count = var.public_subnet ? 1 : 0
+resource aws_subnet private_az_b {
+  count = var.private_subnet ? 1 : 0
 
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = cidrsubnet(var.cidr_block, var.subnet_bits, var.base_net + 5)
   availability_zone       = "${var.region}b"
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
 
   tags = var.subnet_tags
 }
 
-resource aws_subnet public_az_c {
-  count = var.public_subnet ? 1 : 0
+resource aws_subnet private_az_c {
+  count = var.private_subnet ? 1 : 0
 
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = cidrsubnet(var.cidr_block, var.subnet_bits, var.base_net + 6)
   availability_zone       = "${var.region}c"
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
 
   tags = var.subnet_tags
 }
