@@ -99,3 +99,13 @@ resource aws_security_group_rule https {
   to_port           = 443
   cidr_blocks       = [var.cidr_block]
 }
+
+resource aws_vpc_dhcp_options dhcp {
+  domain_name         = var.domain_name
+  domain_name_servers = ["AmazonProvidedDNS"]
+}
+
+resource aws_vpc_dhcp_options_association set {
+  vpc_id          = aws_vpc.vpc.id
+  dhcp_options_id = aws_vpc_dhcp_options.dhcp.id
+}

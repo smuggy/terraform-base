@@ -16,4 +16,7 @@ variable subnet_bits {
   type = number
   default = 3
 }
+
 variable region {}
+
+variable domain_name {}
