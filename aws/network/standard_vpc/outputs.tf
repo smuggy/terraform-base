@@ -1,5 +1,5 @@
 output vpc_id {
-  value = aws_vpc.kubernetes.id
+  value = aws_vpc.vpc.id
 }
 
 output route_table_id {
@@ -7,13 +7,13 @@ output route_table_id {
 }
 
 output subnet_a_id {
-  value = aws_subnet.ohio_a.id
+  value = aws_subnet.az_a.id
 }
 
 output subnet_b_id {
-  value = aws_subnet.ohio_b.id
+  value = aws_subnet.az_b.id
 }
 
 output subnet_c_id {
-  value = aws_subnet.ohio_c.id
+  value = aws_subnet.az_c.id
 }
