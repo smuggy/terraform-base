@@ -25,3 +25,8 @@ variable base_net {
   type = number
   default = 0
 }
+
+variable public_subnet {
+  type = bool
+  default = false
+}
