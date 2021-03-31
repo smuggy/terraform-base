@@ -20,3 +20,8 @@ variable subnet_bits {
 variable region {}
 
 variable domain_name {}
+
+variable base_net {
+  type = number
+  default = 0
+}

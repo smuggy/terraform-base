@@ -26,7 +26,7 @@ resource aws_default_route_table drt {
 
 resource aws_subnet az_a {
   vpc_id                  = aws_vpc.vpc.id
-  cidr_block              = local.subnets[0]
+  cidr_block              = cidrsubnet(var.cidr_block, var.subnet_bits, var.base_net + 1)
   availability_zone       = "${var.region}a"
   map_public_ip_on_launch = true
   tags = var.subnet_tags
@@ -34,7 +34,7 @@ resource aws_subnet az_a {
 
 resource aws_subnet az_b {
   vpc_id                  = aws_vpc.vpc.id
-  cidr_block              = local.subnets[1]
+  cidr_block              = cidrsubnet(var.cidr_block, var.subnet_bits, var.base_net + 2)
   availability_zone       = "${var.region}b"
   map_public_ip_on_launch = true
 
@@ -43,7 +43,7 @@ resource aws_subnet az_b {
 
 resource aws_subnet az_c {
   vpc_id                  = aws_vpc.vpc.id
-  cidr_block              = local.subnets[2]
+  cidr_block              = cidrsubnet(var.cidr_block, var.subnet_bits, var.base_net + 3)
   availability_zone       = "${var.region}c"
   map_public_ip_on_launch = true
 
