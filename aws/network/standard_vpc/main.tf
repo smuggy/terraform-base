@@ -141,3 +141,28 @@ resource aws_vpc_dhcp_options_association set {
   vpc_id          = aws_vpc.vpc.id
   dhcp_options_id = aws_vpc_dhcp_options.dhcp.id
 }
+
+resource aws_route_table private_table {
+  count = var.private_subnet ? 1 : 0
+  vpc_id   = aws_vpc.vpc.id
+  tags = {
+    use = "local"
+  }
+}
+
+resource aws_route_table_association private_a {
+  count = var.private_subnet ? 1 : 0
+  subnet_id      = aws_subnet.private_az_a
+  route_table_id = aws_route_table.private_table.id
+}
+
+resource aws_route_table_association private_b {
+  count = var.private_subnet ? 1 : 0
+  subnet_id      = aws_subnet.private_az_b
+  route_table_id = aws_route_table.private_table.id
+}
+resource aws_route_table_association private_c {
+  count = var.private_subnet ? 1 : 0
+  subnet_id      = aws_subnet.private_az_c
+  route_table_id = aws_route_table.private_table.id
+}
