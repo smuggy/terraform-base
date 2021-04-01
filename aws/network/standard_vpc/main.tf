@@ -29,7 +29,7 @@ resource aws_subnet public_az_a {
   cidr_block              = cidrsubnet(var.cidr_block, var.subnet_bits, var.base_net + 1)
   availability_zone       = "${var.region}a"
   map_public_ip_on_launch = true
-  tags = var.subnet_tags
+  tags = merge({"Name": "${var.vpc_name}-public-a"},var.subnet_tags)
 }
 
 resource aws_subnet public_az_b {
@@ -38,7 +38,7 @@ resource aws_subnet public_az_b {
   availability_zone       = "${var.region}b"
   map_public_ip_on_launch = true
 
-  tags = var.subnet_tags
+  tags = merge({"Name": "${var.vpc_name}-public-b"},var.subnet_tags)
 }
 
 resource aws_subnet public_az_c {
@@ -47,7 +47,7 @@ resource aws_subnet public_az_c {
   availability_zone       = "${var.region}c"
   map_public_ip_on_launch = true
 
-  tags = var.subnet_tags
+  tags = merge({"Name": "${var.vpc_name}-public-c"},var.subnet_tags)
 }
 
 resource aws_subnet private_az_a {
@@ -57,7 +57,8 @@ resource aws_subnet private_az_a {
   cidr_block              = cidrsubnet(var.cidr_block, var.subnet_bits, var.base_net + 5)
   availability_zone       = "${var.region}a"
   map_public_ip_on_launch = false
-  tags = var.subnet_tags
+
+  tags = merge({"Name": "${var.vpc_name}-private-a"},var.subnet_tags)
 }
 
 resource aws_subnet private_az_b {
@@ -68,7 +69,7 @@ resource aws_subnet private_az_b {
   availability_zone       = "${var.region}b"
   map_public_ip_on_launch = false
 
-  tags = var.subnet_tags
+  tags = merge({"Name": "${var.vpc_name}-private-b"},var.subnet_tags)
 }
 
 resource aws_subnet private_az_c {
@@ -79,7 +80,7 @@ resource aws_subnet private_az_c {
   availability_zone       = "${var.region}c"
   map_public_ip_on_launch = false
 
-  tags = var.subnet_tags
+  tags = merge({"Name": "${var.vpc_name}-private-c"},var.subnet_tags)
 }
 
 resource aws_vpc_endpoint s3_endpoint {
