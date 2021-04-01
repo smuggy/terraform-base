@@ -153,19 +153,19 @@ resource aws_route_table private_table {
 resource aws_route_table_association private_a {
   count = var.private_subnet ? 1 : 0
 
-  subnet_id      = aws_subnet.private_az_a
+  subnet_id      = aws_subnet.private_az_a.*.id[0]
   route_table_id = aws_route_table.private_table.*.id[0]
 }
 
 resource aws_route_table_association private_b {
   count = var.private_subnet ? 1 : 0
 
-  subnet_id      = aws_subnet.private_az_b
+  subnet_id      = aws_subnet.private_az_b.*.id[0]
   route_table_id = aws_route_table.private_table.*.id[0]
 }
 resource aws_route_table_association private_c {
   count = var.private_subnet ? 1 : 0
 
-  subnet_id      = aws_subnet.private_az_c
+  subnet_id      = aws_subnet.private_az_c.*.id[0]
   route_table_id = aws_route_table.private_table.*.id[0]
 }
