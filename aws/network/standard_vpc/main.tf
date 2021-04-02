@@ -25,7 +25,7 @@ resource aws_subnet public_az_a {
   cidr_block              = cidrsubnet(var.cidr_block, var.subnet_bits, var.base_net + 1)
   availability_zone       = "${var.region}a"
   map_public_ip_on_launch = true
-  tags = merge({"Name": "${var.vpc_name}-public-a"},var.subnet_tags)
+  tags = merge({"Name": "${var.vpc_name}-public-a", "use": "public"},var.subnet_tags)
 }
 
 resource aws_subnet public_az_b {
@@ -34,7 +34,7 @@ resource aws_subnet public_az_b {
   availability_zone       = "${var.region}b"
   map_public_ip_on_launch = true
 
-  tags = merge({"Name": "${var.vpc_name}-public-b"},var.subnet_tags)
+  tags = merge({"Name": "${var.vpc_name}-public-b", "use": "public"},var.subnet_tags)
 }
 
 resource aws_subnet public_az_c {
@@ -43,7 +43,7 @@ resource aws_subnet public_az_c {
   availability_zone       = "${var.region}c"
   map_public_ip_on_launch = true
 
-  tags = merge({"Name": "${var.vpc_name}-public-c"},var.subnet_tags)
+  tags = merge({"Name": "${var.vpc_name}-public-c", "use": "public"},var.subnet_tags)
 }
 
 resource aws_subnet private_az_a {
@@ -54,7 +54,7 @@ resource aws_subnet private_az_a {
   availability_zone       = "${var.region}a"
   map_public_ip_on_launch = false
 
-  tags = merge({"Name": "${var.vpc_name}-private-a"},var.subnet_tags)
+  tags = merge({"Name": "${var.vpc_name}-private-a", "use": "private"},var.subnet_tags)
 }
 
 resource aws_subnet private_az_b {
@@ -65,7 +65,7 @@ resource aws_subnet private_az_b {
   availability_zone       = "${var.region}b"
   map_public_ip_on_launch = false
 
-  tags = merge({"Name": "${var.vpc_name}-private-b"},var.subnet_tags)
+  tags = merge({"Name": "${var.vpc_name}-private-b", "use": "private"},var.subnet_tags)
 }
 
 resource aws_subnet private_az_c {
@@ -76,7 +76,7 @@ resource aws_subnet private_az_c {
   availability_zone       = "${var.region}c"
   map_public_ip_on_launch = false
 
-  tags = merge({"Name": "${var.vpc_name}-private-c"},var.subnet_tags)
+  tags = merge({"Name": "${var.vpc_name}-private-c", "use": "private"},var.subnet_tags)
 }
 
 resource aws_vpc_endpoint s3_endpoint {
@@ -89,7 +89,7 @@ resource aws_vpc_endpoint_route_table_association s3_route {
   vpc_endpoint_id = aws_vpc_endpoint.s3_endpoint.id
 }
 
-resource aws_default_security_group kube_vpc_default {
+resource aws_default_security_group vpc_default {
   vpc_id = aws_vpc.vpc.id
 
   ingress {
