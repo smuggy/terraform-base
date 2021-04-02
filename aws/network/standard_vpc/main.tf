@@ -1,7 +1,3 @@
-locals {
-  subnets = cidrsubnets(var.cidr_block, var.subnet_bits, var.subnet_bits, var.subnet_bits)
-}
-
 resource aws_vpc vpc {
   cidr_block           = var.cidr_block
   enable_dns_hostnames = true
