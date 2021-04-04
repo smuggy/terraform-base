@@ -63,4 +63,5 @@ variable export_stats {
 }
 
 variable ami_id {
+  default = ""
 }
