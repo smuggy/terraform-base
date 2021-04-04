@@ -1,6 +1,6 @@
 locals {
   ami_owner    = "099720109477"    # Canonical Group Limited
-  ami_id       = data.aws_ami.ubuntu.id
+  ami_id       = var.ami_id == "" ? data.aws_ami.ubuntu.id : var.ami_id
 }
 
 # 18.04 LTS Bionic amd 64 hvm:ebs-ssd

@@ -61,3 +61,6 @@ variable export_stats {
   type    = bool
   default = true
 }
+
+variable ami_id {
+}
