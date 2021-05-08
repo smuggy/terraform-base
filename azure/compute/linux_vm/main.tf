@@ -21,7 +21,7 @@ locals {
 }
 
 resource azurerm_public_ip address {
-  name                = "${var.app}-public-ip-${var.server_number}"
+  name                = "${local.name}-public-ip"
   resource_group_name = var.rg_name
   location            = var.rg_location
   allocation_method   = "Static"
@@ -35,7 +35,7 @@ resource azurerm_public_ip address {
 }
 
 resource azurerm_network_interface nic {
-  name                      = "${var.app}-nic"
+  name                      = "${local.name}-nic"
   location                  = var.rg_location
   resource_group_name       = var.rg_name
 
