@@ -14,7 +14,7 @@ locals {
   }
 
   region_map = {
-    "Central US" = "c"
+    "centralus" = "c"
   }
   ip_portion = join(".", reverse(regex("[[:digit:]]*.[[:digit:]]*.([[:digit:]]*).([[:digit:]]*)",
                     azurerm_linux_virtual_machine.instance.private_ip_address)))
