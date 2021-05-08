@@ -74,7 +74,13 @@ resource azurerm_linux_virtual_machine instance {
     NodeExport  = "true"
   }
 
-  source_image_id = var.ami_id
+//  source_image_id = var.ami_id
+  source_image_reference {
+    publisher = "canonical"
+    offer     = "0001-com-ubuntu-server-focal"
+    sku       = "20_04-lts-gen2"
+    version   = "latest"
+  }
   zone            = var.zone
 }
 
