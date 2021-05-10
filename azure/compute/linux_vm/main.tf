@@ -107,6 +107,7 @@ resource azurerm_managed_disk example {
   storage_account_type = "Standard_LRS"
   create_option        = "Empty"
   disk_size_gb         = 5
+  zones                = [var.zone]
 
   tags = {
     environment = var.environment
