@@ -99,3 +99,23 @@ resource azurerm_private_dns_ptr_record reverse {
   name                = local.ip_portion
   records             = [local.name]
 }
+
+resource azurerm_managed_disk example {
+  name                 = "${local.name}-md-1"
+  location             = var.rg_location
+  resource_group_name  = var.rg_name
+  storage_account_type = "Standard_LRS"
+  create_option        = "Empty"
+  disk_size_gb         = 5
+
+  tags = {
+    environment = var.environment
+  }
+}
+
+resource azurerm_virtual_machine_data_disk_attachment example {
+  managed_disk_id    = azurerm_managed_disk.example.id
+  virtual_machine_id = azurerm_linux_virtual_machine.instance.id
+  lun                = 7
+  caching            = "ReadWrite"
+}
