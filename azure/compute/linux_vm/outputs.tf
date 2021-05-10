@@ -10,3 +10,6 @@ output private_ip {
   value = azurerm_linux_virtual_machine.instance.private_ip_address
 }
 
+output nic {
+  value = azurerm_network_interface.nic.id
+}
