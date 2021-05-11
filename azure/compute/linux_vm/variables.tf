@@ -23,8 +23,8 @@ variable app {
 }
 
 variable volume_size {
-  default = 0
-  type    = number
+  default = []
+  type    = list(number)
 }
 
 variable server_group {

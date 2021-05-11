@@ -100,14 +100,14 @@ resource azurerm_private_dns_ptr_record reverse {
   records             = [local.name]
 }
 
-resource azurerm_managed_disk example {
-  count = var.volume_size == 0 ? 0 : 1
+resource azurerm_managed_disk storage {
+  count = length(var.volume_size)
   name                 = "${local.name}-md-${count.index}"
   location             = var.rg_location
   resource_group_name  = var.rg_name
   storage_account_type = "Standard_LRS"
   create_option        = "Empty"
-  disk_size_gb         = var.volume_size
+  disk_size_gb         = var.volume_size[count.index]
   zones                = [var.zone]
 
   tags = {
@@ -115,10 +115,10 @@ resource azurerm_managed_disk example {
   }
 }
 
-resource azurerm_virtual_machine_data_disk_attachment example {
-  count = var.volume_size == 0 ? 0 : 1
-  managed_disk_id    = azurerm_managed_disk.example.*.id[count.index]
+resource azurerm_virtual_machine_data_disk_attachment attach {
+  count = length(var.volume_size)
+  managed_disk_id    = azurerm_managed_disk.storage.*.id[count.index]
   virtual_machine_id = azurerm_linux_virtual_machine.instance.id
-  lun                = 1
+  lun                = count.index + 1
   caching            = "ReadWrite"
 }
