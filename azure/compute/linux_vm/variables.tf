@@ -60,6 +60,6 @@ variable ami_id {
 variable dns_rg_name {}
 
 variable identity {
-  type    = object({id_type= string, id = string})
-  default = {}
+  type    = list(object({id_type= string, id = string}))
+  default = []
 }

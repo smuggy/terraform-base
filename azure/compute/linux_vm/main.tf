@@ -84,10 +84,13 @@ resource azurerm_linux_virtual_machine instance {
   zone            = var.zone
 
   dynamic "identity" {
-    for_each = var.identity
+    for_each = [for i in var.identity: {
+      t = i.id_type
+      s = i.id
+    }]
     content {
-      type = identity.value.id_type
-      identity_ids = [identity.value.id]
+      type = identity.value.t
+      identity_ids = [identity.value.s]
     }
   }
 }
