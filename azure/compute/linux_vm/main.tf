@@ -82,6 +82,14 @@ resource azurerm_linux_virtual_machine instance {
 //    version   = "latest"
 //  }
   zone            = var.zone
+
+  dynamic "identity" {
+    for_each = var.identity
+    content {
+      type = identity.value.id_type
+      identity_ids = [identity.value.id]
+    }
+  }
 }
 
 resource azurerm_private_dns_a_record prom {
