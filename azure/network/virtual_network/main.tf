@@ -8,24 +8,23 @@ resource azurerm_virtual_network net {
   resource_group_name = var.rg_name
   address_space       = [var.cidr_block]
 
-  subnet {
-    name           = "${var.subarea}-subnet-1"
-    address_prefix = cidrsubnet(var.cidr_block, var.subnet_bits, var.base_net + 1)
-  }
-
-  subnet {
-    name           = "${var.subarea}-subnet-2"
-    address_prefix = cidrsubnet(var.cidr_block, var.subnet_bits, var.base_net + 2)
-  }
-
-  subnet {
-    name           = "${var.subarea}-subnet-3"
-    address_prefix = cidrsubnet(var.cidr_block, var.subnet_bits, var.base_net + 3)
-  }
-
   tags = {
     environment = var.environment
   }
+}
+
+resource azurerm_subnet subnet_1 {
+  name                 = "${var.subarea}-subnet-1"
+  resource_group_name  = var.rg_name
+  virtual_network_name = "${var.subarea}-central-us"
+  address_prefixes     = [cidrsubnet(var.cidr_block, var.subnet_bits, var.base_net + 1)]
+}
+
+resource azurerm_subnet subnet_2 {
+  name                 = "${var.subarea}-subnet-2"
+  resource_group_name  = var.rg_name
+  virtual_network_name = "${var.subarea}-central-us"
+  address_prefixes     = [cidrsubnet(var.cidr_block, var.subnet_bits, var.base_net + 2)]
 }
 
 resource azurerm_network_security_group network_sg {
@@ -96,6 +95,11 @@ resource azurerm_network_security_group network_sg {
   }
 }
 
+resource azurerm_subnet_network_security_group_association filter {
+  network_security_group_id = azurerm_network_security_group.network_sg.id
+  subnet_id                 = azurerm_subnet.subnet_1.id
+}
+
 resource azurerm_private_dns_zone local {
   name                = var.domain_name
   resource_group_name = var.rg_name
@@ -111,7 +115,6 @@ resource azurerm_private_dns_zone_virtual_network_link name_link {
   resource_group_name   = var.rg_name
   virtual_network_id    = azurerm_virtual_network.net.id
   private_dns_zone_name = azurerm_private_dns_zone.local.name
-
 }
 
 resource azurerm_private_dns_zone_virtual_network_link reverse_link {
