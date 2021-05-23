@@ -15,15 +15,15 @@ resource azurerm_virtual_network net {
 
 resource azurerm_subnet subnet_1 {
   name                 = "${var.subarea}-subnet-1"
-  resource_group_name  = var.rg_name
-  virtual_network_name = "${var.subarea}-central-us"
+  resource_group_name  = azurerm_virtual_network.net.resource_group_name
+  virtual_network_name = azurerm_virtual_network.net.name
   address_prefixes     = [cidrsubnet(var.cidr_block, var.subnet_bits, var.base_net + 1)]
 }
 
 resource azurerm_subnet subnet_2 {
   name                 = "${var.subarea}-subnet-2"
-  resource_group_name  = var.rg_name
-  virtual_network_name = "${var.subarea}-central-us"
+  resource_group_name  = azurerm_virtual_network.net.resource_group_name
+  virtual_network_name = azurerm_virtual_network.net.name
   address_prefixes     = [cidrsubnet(var.cidr_block, var.subnet_bits, var.base_net + 2)]
 }
 
