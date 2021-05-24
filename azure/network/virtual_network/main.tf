@@ -65,6 +65,28 @@ resource azurerm_network_security_group network_sg {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
+  security_rule {
+    name                       = "tcp-in-kube-nodeports"
+    priority                   = 130
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "30000-32500"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+  security_rule {
+    name                       = "tcp-in-kube-alt-port-1"
+    priority                   = 140
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "4443"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
 
   security_rule {
     name                       = "tcp-out-http"
