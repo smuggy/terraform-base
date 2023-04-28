@@ -6,7 +6,6 @@ module key {
 }
 
 resource tls_cert_request csr {
-  key_algorithm   = var.algorithm
   private_key_pem = module.key.private_key_pem
 
   subject {
@@ -19,7 +18,6 @@ resource tls_cert_request csr {
 }
 
 resource tls_locally_signed_cert subordinate {
-  ca_key_algorithm      = var.ca_algorithm
   ca_private_key_pem    = var.ca_private_key
   ca_cert_pem           = var.ca_certificate
   cert_request_pem      = tls_cert_request.csr.cert_request_pem
