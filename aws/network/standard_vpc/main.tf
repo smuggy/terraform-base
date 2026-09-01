@@ -141,7 +141,7 @@ resource aws_security_group public {
   }
 }
 
-resource aws_security_group_rule https {
+resource aws_security_group_rule outbound_open {
   security_group_id = aws_security_group.public.id
   type              = "egress"
   protocol          = "tcp"
